@@ -55,6 +55,7 @@ interval_mean[which(interval_mean==max(interval_mean))]
 ## Imputing missing values
 
 ```r
+#copy dataset, store the interval mean in all the NA step records, sum by each day, histogram the total steps, mean, median
 sum(is.na(act$steps))
 ```
 
@@ -64,11 +65,9 @@ sum(is.na(act$steps))
 
 ```r
 act2 <- act
-act2$means <- interval_mean
 act2$steps <- replace(act2$steps, is.na(act2$steps), interval_mean)
-act2$means <- NULL
 total_steps2 <- tapply(act2$steps,act2$date,sum,na.rm=T)
-hist(total_steps2, main = "Total Steps with replacement", xlab="Interval", ylab = "Total Steps")
+hist(total_steps2, main = "Total Steps with replacement", ylab="Interval", xlab = "Total Steps")
 ```
 
 ![](./PA1_template_files/figure-html/missing_values-1.png) 
